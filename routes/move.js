@@ -20,15 +20,17 @@ function add(server, app_data) {
       }
 
       const board = boardInstance.map;
+
       const cards = await cardModel.find();
       const symbolToImage = {};
       cards.forEach(card => {
-        symbolToImage[card.symbol] = card.image.replace('./images/', '');
+        symbolToImage[card.symbol] = card.image;
       });
 
       const symbol1 = board[firstCell - 1];
       const symbol2 = board[secondCell - 1];
       const status = (symbol1 === symbol2) ? 'match' : 'mismatch';
+
       const action = new saModel({
         board: boardId,
         first: firstCell,
@@ -45,8 +47,8 @@ function add(server, app_data) {
         location2: secondCell,
         symbol1: symbol1,
         symbol2: symbol2,
-        image1: symbolToImage[symbol1],
-        image2: symbolToImage[symbol2]
+        image1: symbolToImage[symbol1] ? symbolToImage[symbol1].replace('/images/', '') : '',
+        image2: symbolToImage[symbol2] ? symbolToImage[symbol2].replace('/images/', '') : ''
       });
 
     } catch (err) {

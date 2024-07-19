@@ -20,6 +20,9 @@ server.use(express.static('public'));
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1:27017/memory');
 
+const fs = require('fs'); // For reading JSON files
+const path = require('path'); // For resolving file paths
+
 const saSchema = new mongoose.Schema({
   first: { type: Number },  //refers to the cell number of the first card selected
   second: { type: Number }, //refers to the cell number of the second card selected
@@ -80,6 +83,16 @@ server.get('/board/:id', function(req, resp){
 //cases, some processing can be done in app.js.
 
 //Modifyable area start ---- ---- ---- ---- ----
+    await cardModel.insertMany(cards);
+    console.log('Cards data loaded successfully');
+
+  } catch (err) {
+    console.error('Error loading JSON data:', err);
+  }
+}
+
+mongoose.connection.once('open', loadJSONData);
+
 
 let app_data = {
   'saModel'   : saModel,
@@ -98,7 +111,6 @@ mod_m.add(server, app_data);
 
 //Modifyable area end ---- ---- ---- ---- ----
 
-
 function finalClose(){
     console.log('Close connection at the end!');
     mongoose.connection.close();
@@ -109,9 +121,7 @@ process.on('SIGTERM',finalClose);
 process.on('SIGINT',finalClose);
 process.on('SIGQUIT', finalClose);
 
-const port = process.env.PORT | 1234;
+const port = process.env.PORT || 1234;
 server.listen(port, function(){
     console.log('Listening at port '+port);
 });
-
-

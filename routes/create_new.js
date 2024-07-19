@@ -1,5 +1,4 @@
 function add(server, app_data) {
-
   function errorFn(err) {
     console.log('Error found. Please trace!');
     console.error(err);

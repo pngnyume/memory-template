@@ -14,7 +14,7 @@ function add(server, app_data) {
       const cards = await cardModel.find();
       const symbolToImage = {};
       cards.forEach(card => {
-        symbolToImage[card.symbol] = card.image.replace('./images/', '');
+        symbolToImage[card.symbol] = card.image;
       });
 
       const actions = await saModel.find({ board: boardId });
@@ -25,8 +25,8 @@ function add(server, app_data) {
         location2: action.second,
         symbol1: action.symbol1,
         symbol2: action.symbol2,
-        image1: symbolToImage[action.symbol1],
-        image2: symbolToImage[action.symbol2]
+        image1: symbolToImage[action.symbol1] ? symbolToImage[action.symbol1].replace('/images/', '') : '',
+        image2: symbolToImage[action.symbol2] ? symbolToImage[action.symbol2].replace('/images/', '') : ''
       }));
 
       resp.send({ actions: actionList });
