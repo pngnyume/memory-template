@@ -1,0 +1,11 @@
+<!-- To put files in each other -->
+<div class="main">
+  <div class="jumbotron">
+    <form action="create_new" method="post">
+      <input type="submit" value="Create new"></input>
+    </form>
+    {{#each boards}}
+    <a href="/board/{{_id}}">{{_id}}</a> | 
+    {{/each}}
+  </div>
+</div>

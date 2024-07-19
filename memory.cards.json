@@ -1,0 +1,10 @@
+[
+  {"image":"/images/diamonds.png",     "symbol":"A"},
+  {"image":"/images/chess-rook.png",   "symbol":"B"},
+  {"image":"/images/chess-knight.png", "symbol":"C"},
+  {"image":"/images/spades.png",       "symbol":"D"},
+  {"image":"/images/hearts.png",       "symbol":"E"},
+  {"image":"/images/clubs.png",        "symbol":"F"},
+  {"image":"/images/chess-king.png",   "symbol":"G"},
+  {"image":"/images/chess-bishop.png", "symbol":"H"}
+]
